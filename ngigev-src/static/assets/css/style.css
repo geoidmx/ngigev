@@ -1,0 +1,12 @@
+.sidebar .decorator {
+  height: 0.25rem;
+  background-color: #caa45d;
+  width: 80%;
+  margin: auto;
+  display: block;
+}
+
+.main .map {
+  width: 100%;
+  height: calc(100vh - 67px);
+}/*# sourceMappingURL=style.css.map */

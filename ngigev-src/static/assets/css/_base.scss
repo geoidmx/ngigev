@@ -1,0 +1,82 @@
+// brand colors
+
+$theme-colors: (
+  "primary": #0F1F2F,
+  "secondary": #CAA45D,
+  "success": #95c7c4,
+  "danger": #d14b12,
+  "warning": #f9d800,
+  "info": #8cc3e4,
+  "light": #f2f3f1,
+  "dark": #21302f,
+);
+
+$brand-1: #0F1F2F;
+$brand-2: #7B6993;
+$accent-1: #CAA45D;
+$accent-2: #F0C36D;
+
+//fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+$font-family-base: 'Montserrat', sans-serif;
+$headings-font-family: 'Montserrat', sans-serif;
+
+$font-size-base: 0.9rem;
+$h1-font-size: $font-size-base * 3.4;
+$h2-font-size: $font-size-base * 2.8;
+$h3-font-size: $font-size-base * 2;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+
+//buttons
+$btn-border-radius: 25px;
+$btn-border-radius-lg: 25px;
+$btn-border-radius-sm: 25px;
+$btn-padding-x: 1rem;
+$btn-transition: 0.4s;
+
+// bootstrap css
+@import "../../src/bootstrap/scss/bootstrap";
+
+.container{
+  max-width: 1200px;
+}
+
+.bg-brand {
+  background-color: $brand-1;
+}
+
+.bg-accent {
+  background-color: $accent-1;
+}
+.bg-gradient-brand {
+  background: linear-gradient(to right, $accent-1, $brand-1 100%);
+}
+.bg-gradient-accent {
+  background: linear-gradient(to right, $brand-1, $brand-2 100%);
+}
+.bg-gradient-contrast {
+  background: linear-gradient(to right, $accent-1, $accent-2 100%);
+}
+
+a {
+  color: $accent-1;
+}
+
+.text-accent {
+  color: $accent-1;
+}
+
+.text-light{
+  color: map-get($theme-colors , "light" );
+}
+
+body{
+  font-weight: 400;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-weight: 600;
+}

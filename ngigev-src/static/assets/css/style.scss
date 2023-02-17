@@ -1,0 +1,21 @@
+$brand-1: #0f1f2f;
+$brand-2: #7b6993;
+$accent-1: #caa45d;
+$accent-2: #f0c36d;
+
+.sidebar {
+  .decorator {
+    height: 0.25rem;
+    background-color: $accent-1;
+    width: 80%;
+    margin: auto;
+    display: block;
+  }
+}
+
+.main {
+  .map {
+    width: 100%;
+    height: calc(100vh - 67px);
+  }
+}

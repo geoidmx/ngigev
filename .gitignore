@@ -1,0 +1,6 @@
+libraries
+cache
+venv
+__pycache__
+dblocal-ngigev.db
+temp

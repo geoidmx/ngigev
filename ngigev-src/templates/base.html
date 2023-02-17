@@ -1,0 +1,47 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGIGEV</title>
+    <meta name="description"
+        content="Herramienta tecnológica para la integración de Información Geográfica Voluntaria en la actualización de nombres geográficos.">
+    <meta name="keywords" content="Datos Voluntarios, Nombres Geográficos">
+    <!-- CSS only -->
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-md-4 col-lg-3 sidebar bg-light p-5">
+                <h2 class="text-center bolder">
+                    NGIGEV</h2>
+                <h4 class="text-center mb-3">Información Geográfica Voluntaria</h4>
+                <span class="decorator mb-5"></span>
+                <p>Visualizar las diferencias de objetos geográficos y de atributos principales, entre la base de datos
+                    oficiales de un Estado Miembro del IPGH participante del proyecto, y la de OpenStreetMap (OSM).</p>
+                <hr>
+                <p>Aquí podras identificar visualmente las diferencias existentes cartografia voluntaria y cartografica
+                    oficial en redes carreteras, nombres geográficos de poblaciones y sitios de interes. </p>
+                <p>Paises participantes:</p>
+                <p class="text-center">Colombia,<br> Costa Rica,<br> México,<br> Panamá, y <br> República Dominicana</p>
+            </aside>
+            <main class="col-md-8 col-lg-9 main p-0">
+                {% block map %}
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+    <script src="{% static 'src/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>
