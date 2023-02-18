@@ -1,4 +1,4 @@
 from django.apps import AppConfig
 
-class UtilsConfig(AppConfig):
+class LayersConfig(AppConfig):
     name = 'apps.layers'
