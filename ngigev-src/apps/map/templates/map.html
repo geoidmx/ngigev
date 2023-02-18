@@ -2,8 +2,8 @@
 {% load static%}
 
 {% block styles %}
-<link href="{% static 'src/leaflet/leaflet.css' %}" rel="stylesheet">
-<link href="{% static 'src/leaflet-legend/leaflet.legend.css' %}" rel="stylesheet">
+<link href="{% static 'leaflet/leaflet.css' %}" rel="stylesheet">
+<link href="{% static 'leaflet-legend/leaflet.legend.css' %}" rel="stylesheet">
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
   rel='stylesheet' />
 {% endblock %}
@@ -75,7 +75,7 @@
           <!--services registered-->
         </div>
         <div class="modal-footer">
-          <img id="wfs-loading" src="{% static 'assets/img/loading.svg' %}" alt="loading"
+          <img id="wfs-loading" src="{% static 'img/loading.svg' %}" alt="loading"
             style="max-height: 100px; display: none;">
           <button id="wfs-load-button" type="submit" class="btn btn-secondary">Agregar</button>
         </div>
@@ -125,7 +125,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <img id="shp-loading" src="{% static 'assets/img/loading.svg' %}" alt="loading"
+          <img id="shp-loading" src="{% static 'img/loading.svg' %}" alt="loading"
             style="max-height: 100px; display: none;">
           <button id="shp-load-button" type="submit" class="btn btn-secondary">Agregar</button>
         </div>
@@ -148,7 +148,7 @@
           <p>Agrega una capa WFS o SHP</p>
         </div>
         <div class="modal-footer">
-          <img id="compare-loading" src="{% static 'assets/img/loading.svg' %}" alt="loading"
+          <img id="compare-loading" src="{% static 'img/loading.svg' %}" alt="loading"
             style="max-height: 100px; display: none;">
           <button id="compare-button" type="submit" class="btn btn-secondary disabled">Comparar</button>
         </div>
@@ -159,13 +159,13 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'src/leaflet/leaflet.js' %}"></script>
-<script src="{% static 'src/leaflet-hash/leaflet-hash.js' %}"></script>
-<script src="{% static 'src/leaflet-vectorgrid/dist/Leaflet.VectorGrid.bundled.js' %}"></script>
-<script src="{% static 'src/leaflet-vectorgrid/canvas.tile.js' %}"></script>
-<script src="{% static 'src/leaflet-legend/leaflet.legend.js' %}"></script>
+<script src="{% static 'leaflet/leaflet.js' %}"></script>
+<script src="{% static 'leaflet-hash/leaflet-hash.js' %}"></script>
+<script src="{% static 'leaflet-vectorgrid/dist/Leaflet.VectorGrid.bundled.js' %}"></script>
+<script src="{% static 'leaflet-vectorgrid/canvas.tile.js' %}"></script>
+<script src="{% static 'leaflet-legend/leaflet.legend.js' %}"></script>
 <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-<script src="{% static 'src/ngigev/map.js' %}"></script>
-<script src="{% static 'src/ngigev/interface.js' %}"></script>
-<script src="{% static 'src/ngigev/app.js' %}"></script>
+<script src="{% static 'ngigev/map.js' %}"></script>
+<script src="{% static 'ngigev/interface.js' %}"></script>
+<script src="{% static 'ngigev/app.js' %}"></script>
 {% endblock %}
