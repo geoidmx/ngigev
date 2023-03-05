@@ -10,7 +10,7 @@ import json
 import os
 
 from apps.layers.forms import TemporaryShpForm
-from apps.layers.models import WFSService
+from apps.layers.models import TemporaryShp
 from .comparisions import CompareWithWFS, CompareWithSHP
 
 
@@ -33,26 +33,52 @@ class CompareDataView(View):
 
         # compare by data source
         if data_source == 'WFS':
-            # clean temp files
-            self.clean_model()
             layer_id = self.kwargs['pk']
             bbox = self.kwargs['bbox']
             compare_with_wfs = CompareWithWFS(
                 layer_id, comparision_option, bbox)
+            # get comparision
+            comparision = compare_with_wfs.compare()
+            # clean temp files
+            self.clean_wfs_comparision()
             # return comparision
-            return compare_with_wfs.compare()
+            return comparision
         elif data_source == 'SHP':
             layer_name = self.kwargs['name']
             compare_with_shp = CompareWithSHP(layer_name, comparision_option)
+            # get comparision
+            comparision = compare_with_shp.compare()
+            # clean temp files
+            self.clean_shp_comparision()
             # return comparision
-            return compare_with_shp.compare()
+            return comparision
         else:
             # return empty
             wfs_data = {}
             return HttpResponse(json.dumps(wfs_data), content_type='application/json')
 
-    def clean_model(self):
-        # clean temporary directory
-        temp_dir = "media/temp"
+    def clean_shp_comparision(self):
+        # delete temporary object
+        layer_name = self.kwargs['name']
+        if TemporaryShp.objects.filter(name=layer_name).exists():
+            # get object
+            layer = TemporaryShp.objects.filter(name=layer_name)[0]
+            # get shp file name
+            shp_file = layer.shp_file_path.split('.')[0]
+            # clean temporary shp directory
+            temp_dir = "media/temp"
+            for file in os.listdir(temp_dir):
+                if file.split('.')[0] == shp_file:
+                    os.remove(os.path.join(temp_dir, file))
+            # delete object
+            layer.delete()
+            # clean cache directory
+            temp_dir = "cache"
+            for file in os.listdir(temp_dir):
+                os.remove(os.path.join(temp_dir, file))
+
+    def clean_wfs_comparision(self):
+        # clean cache directory
+        temp_dir = "cache"
         for file in os.listdir(temp_dir):
             os.remove(os.path.join(temp_dir, file))

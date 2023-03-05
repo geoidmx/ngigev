@@ -48,8 +48,6 @@ class LoadTemporaryShpView(FormView):
     model = TemporaryShp
 
     def post(self, request, *args, **kwargs):
-        # delete objects
-        self.clean_model()
         # get form
         form_class = self.get_form_class()
         form = self.get_form(form_class)
@@ -95,14 +93,6 @@ class LoadTemporaryShpView(FormView):
         jLayer = shp_file.to_json()
         return HttpResponse(jLayer, content_type='application/json')
 
-    def clean_model(self):
-        # remove all registers in model
-        self.model.objects.all().delete()
-        # clean temporary directory
-        shp_dir = "media/temp"
-        for file in os.listdir(shp_dir):
-            os.remove(os.path.join(shp_dir, file))
-
 
 class LoadWFSView(View):
     """
@@ -111,8 +101,6 @@ class LoadWFSView(View):
     model = WFSService
 
     def get(self, request, *args, **kwargs):
-        # delete objects
-        # self.clean_model()
         # get wfs serivice id, and bbox to view data
         wfs_id = self.kwargs['pk']
         wfs_bbox = self.kwargs['bbox']
@@ -148,9 +136,9 @@ class LoadWFSView(View):
         # rename variable
         wfs_layer.rename(
             columns={wfs_registered.variable_wfs: 'value'}, inplace=True)
-        # create identifier 
+        # create identifier
         wfs_layer["num"] = np.arange(len(wfs_layer))
-        
+
         # Return json
         jLayer = wfs_layer.to_json()
         # get size layer
@@ -173,12 +161,6 @@ class LoadWFSView(View):
         north, east = bbox_json['features'][1]['geometry']['coordinates']
         # return in string coords
         return str(south) + ',' + str(west) + ',' + str(north) + ',' + str(east)
-
-    def clean_model(self):
-        # clean temporary directory
-        shp_dir = "media/temp"
-        for file in os.listdir(shp_dir):
-            os.remove(os.path.join(shp_dir, file))
 
 
 class LoadOSMPoints(View):
