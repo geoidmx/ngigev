@@ -8,11 +8,12 @@ OBJECT_TYPES = (
 class WFSService(models.Model):
     name = models.CharField('Nombre', max_length=100)
     country = models.CharField('Pais', max_length=50)
-    url = models.CharField('Url', max_length=200)
-    layer = models.CharField('Nombre de Capa', max_length=50)
+    url = models.CharField('Url', max_length=300)
+    layer = models.CharField('Nombre de Capa', max_length=100)
     layer_crs = models.CharField('CRS de la capa', max_length=10)
     layer_type = models.CharField(
         'Tipo de Objetos', max_length=10, choices=OBJECT_TYPES)
+    bbox_support = models.BooleanField('Soporta filtros bbox', default=True)
     tag_wfs = models.CharField(
         'Tag filtro en la Capa', max_length=50, default='ninguno')
     variable_wfs = models.CharField('Variable a Comparar WFS*', max_length=50)

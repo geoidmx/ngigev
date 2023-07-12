@@ -103,22 +103,29 @@ class LoadWFSView(View):
     def get(self, request, *args, **kwargs):
         # get wfs serivice id, and bbox to view data
         wfs_id = self.kwargs['pk']
-        wfs_bbox = self.kwargs['bbox']
-
         # get register
         wfs_registered = self.model.objects.get(pk=wfs_id)
-        # reproject coords bbox to wfs crs
-        bbox_coords = self.get_bbox_coords(wfs_bbox, wfs_registered.layer_crs)
+
         # Set web feature service
         wfs = WebFeatureService(url=wfs_registered.url)
+
         # Specify the parameters for fetching the data
         params = dict(service='WFS',
                       version="1.0.0", request='GetFeature',
-                      typeName=wfs_registered.layer,
-                      bbox=bbox_coords)
+                      typeName=wfs_registered.layer)
+        
+        # if wfs support bbox 
+        if wfs_registered.bbox_support:
+            # get wfs_bbox
+            wfs_bbox = self.kwargs['bbox']
+            # reproject coords bbox to wfs crs
+            bbox_coords = self.get_bbox_coords(wfs_bbox, wfs_registered.layer_crs)
+            # update params
+            params.update({'bbox': bbox_coords})
 
         # Generate request
         q = Request('GET', wfs_registered.url, params=params).prepare().url
+    
         # read request
         try:
             # Read data from URL
@@ -203,6 +210,7 @@ class LoadOSMPoints(View):
             float(north), float(south), float(east), float(west), tags)
         # get only points
         osm_objects = osm_objects[osm_objects.geom_type == 'Point']
+
         # simplify two vars
         osm_objects = osm_objects[[wfs.variable_osm, "geometry"]]
         # Rename field variable to be able to identify it when merging into a single H3 table

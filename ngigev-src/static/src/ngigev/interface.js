@@ -129,7 +129,10 @@ class Interface extends Mapa {
       })
       .catch((error) => {
         alert(error);
-        ////hide modal
+        //show button, and hide loading image
+        wfsLoading.style.display = "none";
+        wfsLoadButton.style.display = "block";
+        //hide modal
         wfsModal.hide();
       });
   }

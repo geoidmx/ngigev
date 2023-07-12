@@ -154,15 +154,20 @@ class CompareWithWFS:
         return HttpResponse(final_result.to_json(), content_type='application/json')
 
     def get_wfs_point_objects(self):
-        # reproject coords bbox to wfs crs
-        bbox_coords = self.get_wfs_bbox_coords()
         # Set web feature service
         wfs = WebFeatureService(url=self.wfs.url)
         # Specify the parameters for fetching the data
         params = dict(service='WFS',
                       version="1.0.0", request='GetFeature',
-                      typeName=self.wfs.layer,
-                      bbox=bbox_coords)
+                      typeName=self.wfs.layer)
+        
+        # if wfs support bbox 
+        if self.wfs.bbox_support:
+            # reproject coords bbox to wfs crs
+            bbox_coords = self.get_wfs_bbox_coords()
+            # update params
+            params.update({'bbox': bbox_coords})
+        
         # Generate request
         q = Request('GET', self.wfs.url, params=params).prepare().url
         # Read data from URL
@@ -170,7 +175,7 @@ class CompareWithWFS:
         # set src
         wfs_layer = wfs_layer.set_crs(self.wfs.layer_crs)
         # simplify two vars and filter
-        if self.wfs.tag_wfs != 'todo':
+        if self.wfs.tag_wfs != 'ninguno':
             wfs_layer = wfs_layer.query(self.wfs.tag_wfs)
         wfs_layer = wfs_layer[[self.wfs.variable_wfs, "geometry"]]
         # Rename field variable to be able to identify it when merging into a single H3 table
